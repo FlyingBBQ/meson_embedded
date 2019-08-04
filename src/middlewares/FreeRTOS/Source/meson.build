@@ -1,4 +1,4 @@
-middleswares_src = files(
+middlewares_src = files(
   'croutine.c',
   'event_groups.c',
   'list.c',

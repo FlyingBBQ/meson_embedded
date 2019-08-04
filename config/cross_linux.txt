@@ -17,8 +17,8 @@ c_args = [
     '-Wall',
     '-ffunction-sections',
     '-fdata-sections',
-]
-    
+    ]
+
 c_link_args = [
     '-mcpu=cortex-m7',
     '-mthumb',
@@ -28,7 +28,7 @@ c_link_args = [
     '-lc',
     '-lm',
     '-lnosys',
-]
+    ]
 
 [host_machine]
 system = 'bare-metel'
