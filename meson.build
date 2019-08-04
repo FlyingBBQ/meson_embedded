@@ -45,5 +45,5 @@ main = executable('main',
 mainbin = custom_target('main.bin',
   output : 'main.bin',
   build_by_default : true,
-  command : [objcopy, ['-Obinary', main.full_path(), 'main.bin']], 
+  command : [objcopy, ['-O', 'binary', '-S', main.full_path(), 'main.bin']], 
   depends : main )

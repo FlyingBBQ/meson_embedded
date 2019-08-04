@@ -7,4 +7,4 @@ if [ -d "$buildir" ]; then
     rm -r $buildir
 fi
 
-meson $buildir --cross-file config/cross_linux.txt
+meson $buildir --cross-file config/cross_linux.txt --buildtype debug
