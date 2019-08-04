@@ -1,0 +1,404 @@
+ARM GAS  /tmp/cclI1Mc9.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 1
+  11              		.eabi_attribute 18, 4
+  12              		.file	"stm32h7xx_it.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              		.section	.text.NMI_Handler,"ax",%progbits
+  17              		.align	1
+  18              		.global	NMI_Handler
+  19              		.arch armv7e-m
+  20              		.syntax unified
+  21              		.thumb
+  22              		.thumb_func
+  23              		.fpu fpv5-d16
+  25              	NMI_Handler:
+  26              	.LFB145:
+  27              		.file 1 "Src/stm32h7xx_it.c"
+   1:Src/stm32h7xx_it.c **** /* USER CODE BEGIN Header */
+   2:Src/stm32h7xx_it.c **** /**
+   3:Src/stm32h7xx_it.c ****   ******************************************************************************
+   4:Src/stm32h7xx_it.c ****   * @file    stm32h7xx_it.c
+   5:Src/stm32h7xx_it.c ****   * @brief   Interrupt Service Routines.
+   6:Src/stm32h7xx_it.c ****   ******************************************************************************
+   7:Src/stm32h7xx_it.c ****   * @attention
+   8:Src/stm32h7xx_it.c ****   *
+   9:Src/stm32h7xx_it.c ****   * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
+  10:Src/stm32h7xx_it.c ****   * All rights reserved.</center></h2>
+  11:Src/stm32h7xx_it.c ****   *
+  12:Src/stm32h7xx_it.c ****   * This software component is licensed by ST under Ultimate Liberty license
+  13:Src/stm32h7xx_it.c ****   * SLA0044, the "License"; You may not use this file except in compliance with
+  14:Src/stm32h7xx_it.c ****   * the License. You may obtain a copy of the License at:
+  15:Src/stm32h7xx_it.c ****   *                             www.st.com/SLA0044
+  16:Src/stm32h7xx_it.c ****   *
+  17:Src/stm32h7xx_it.c ****   ******************************************************************************
+  18:Src/stm32h7xx_it.c ****   */
+  19:Src/stm32h7xx_it.c **** /* USER CODE END Header */
+  20:Src/stm32h7xx_it.c **** 
+  21:Src/stm32h7xx_it.c **** /* Includes ------------------------------------------------------------------*/
+  22:Src/stm32h7xx_it.c **** #include "main.h"
+  23:Src/stm32h7xx_it.c **** #include "stm32h7xx_it.h"
+  24:Src/stm32h7xx_it.c **** #include "FreeRTOS.h"
+  25:Src/stm32h7xx_it.c **** #include "task.h"
+  26:Src/stm32h7xx_it.c **** /* Private includes ----------------------------------------------------------*/
+  27:Src/stm32h7xx_it.c **** /* USER CODE BEGIN Includes */
+  28:Src/stm32h7xx_it.c **** /* USER CODE END Includes */
+  29:Src/stm32h7xx_it.c **** 
+  30:Src/stm32h7xx_it.c **** /* Private typedef -----------------------------------------------------------*/
+  31:Src/stm32h7xx_it.c **** /* USER CODE BEGIN TD */
+ARM GAS  /tmp/cclI1Mc9.s 			page 2
+
+
+  32:Src/stm32h7xx_it.c **** 
+  33:Src/stm32h7xx_it.c **** /* USER CODE END TD */
+  34:Src/stm32h7xx_it.c **** 
+  35:Src/stm32h7xx_it.c **** /* Private define ------------------------------------------------------------*/
+  36:Src/stm32h7xx_it.c **** /* USER CODE BEGIN PD */
+  37:Src/stm32h7xx_it.c ****  
+  38:Src/stm32h7xx_it.c **** /* USER CODE END PD */
+  39:Src/stm32h7xx_it.c **** 
+  40:Src/stm32h7xx_it.c **** /* Private macro -------------------------------------------------------------*/
+  41:Src/stm32h7xx_it.c **** /* USER CODE BEGIN PM */
+  42:Src/stm32h7xx_it.c **** 
+  43:Src/stm32h7xx_it.c **** /* USER CODE END PM */
+  44:Src/stm32h7xx_it.c **** 
+  45:Src/stm32h7xx_it.c **** /* Private variables ---------------------------------------------------------*/
+  46:Src/stm32h7xx_it.c **** /* USER CODE BEGIN PV */
+  47:Src/stm32h7xx_it.c **** 
+  48:Src/stm32h7xx_it.c **** /* USER CODE END PV */
+  49:Src/stm32h7xx_it.c **** 
+  50:Src/stm32h7xx_it.c **** /* Private function prototypes -----------------------------------------------*/
+  51:Src/stm32h7xx_it.c **** /* USER CODE BEGIN PFP */
+  52:Src/stm32h7xx_it.c **** 
+  53:Src/stm32h7xx_it.c **** /* USER CODE END PFP */
+  54:Src/stm32h7xx_it.c **** 
+  55:Src/stm32h7xx_it.c **** /* Private user code ---------------------------------------------------------*/
+  56:Src/stm32h7xx_it.c **** /* USER CODE BEGIN 0 */
+  57:Src/stm32h7xx_it.c **** 
+  58:Src/stm32h7xx_it.c **** /* USER CODE END 0 */
+  59:Src/stm32h7xx_it.c **** 
+  60:Src/stm32h7xx_it.c **** /* External variables --------------------------------------------------------*/
+  61:Src/stm32h7xx_it.c **** extern TIM_HandleTypeDef htim1;
+  62:Src/stm32h7xx_it.c **** 
+  63:Src/stm32h7xx_it.c **** /* USER CODE BEGIN EV */
+  64:Src/stm32h7xx_it.c **** 
+  65:Src/stm32h7xx_it.c **** /* USER CODE END EV */
+  66:Src/stm32h7xx_it.c **** 
+  67:Src/stm32h7xx_it.c **** /******************************************************************************/
+  68:Src/stm32h7xx_it.c **** /*           Cortex Processor Interruption and Exception Handlers          */ 
+  69:Src/stm32h7xx_it.c **** /******************************************************************************/
+  70:Src/stm32h7xx_it.c **** /**
+  71:Src/stm32h7xx_it.c ****   * @brief This function handles Non maskable interrupt.
+  72:Src/stm32h7xx_it.c ****   */
+  73:Src/stm32h7xx_it.c **** void NMI_Handler(void)
+  74:Src/stm32h7xx_it.c **** {
+  28              		.loc 1 74 1 view -0
+  29              		.cfi_startproc
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 0, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  75:Src/stm32h7xx_it.c ****   /* USER CODE BEGIN NonMaskableInt_IRQn 0 */
+  76:Src/stm32h7xx_it.c **** 
+  77:Src/stm32h7xx_it.c ****   /* USER CODE END NonMaskableInt_IRQn 0 */
+  78:Src/stm32h7xx_it.c ****   /* USER CODE BEGIN NonMaskableInt_IRQn 1 */
+  79:Src/stm32h7xx_it.c **** 
+  80:Src/stm32h7xx_it.c ****   /* USER CODE END NonMaskableInt_IRQn 1 */
+  81:Src/stm32h7xx_it.c **** }
+  33              		.loc 1 81 1 view .LVU1
+  34 0000 7047     		bx	lr
+ARM GAS  /tmp/cclI1Mc9.s 			page 3
+
+
+  35              		.cfi_endproc
+  36              	.LFE145:
+  38              		.section	.text.HardFault_Handler,"ax",%progbits
+  39              		.align	1
+  40              		.global	HardFault_Handler
+  41              		.syntax unified
+  42              		.thumb
+  43              		.thumb_func
+  44              		.fpu fpv5-d16
+  46              	HardFault_Handler:
+  47              	.LFB146:
+  82:Src/stm32h7xx_it.c **** 
+  83:Src/stm32h7xx_it.c **** /**
+  84:Src/stm32h7xx_it.c ****   * @brief This function handles Hard fault interrupt.
+  85:Src/stm32h7xx_it.c ****   */
+  86:Src/stm32h7xx_it.c **** void HardFault_Handler(void)
+  87:Src/stm32h7xx_it.c **** {
+  48              		.loc 1 87 1 view -0
+  49              		.cfi_startproc
+  50              		@ Volatile: function does not return.
+  51              		@ args = 0, pretend = 0, frame = 0
+  52              		@ frame_needed = 0, uses_anonymous_args = 0
+  53              		@ link register save eliminated.
+  54              	.L3:
+  88:Src/stm32h7xx_it.c ****   /* USER CODE BEGIN HardFault_IRQn 0 */
+  89:Src/stm32h7xx_it.c **** 
+  90:Src/stm32h7xx_it.c ****   /* USER CODE END HardFault_IRQn 0 */
+  91:Src/stm32h7xx_it.c ****   while (1)
+  55              		.loc 1 91 3 discriminator 1 view .LVU3
+  92:Src/stm32h7xx_it.c ****   {
+  93:Src/stm32h7xx_it.c ****     /* USER CODE BEGIN W1_HardFault_IRQn 0 */
+  94:Src/stm32h7xx_it.c ****     /* USER CODE END W1_HardFault_IRQn 0 */
+  95:Src/stm32h7xx_it.c ****   }
+  56              		.loc 1 95 3 discriminator 1 view .LVU4
+  57 0000 FEE7     		b	.L3
+  58              		.cfi_endproc
+  59              	.LFE146:
+  61              		.section	.text.MemManage_Handler,"ax",%progbits
+  62              		.align	1
+  63              		.global	MemManage_Handler
+  64              		.syntax unified
+  65              		.thumb
+  66              		.thumb_func
+  67              		.fpu fpv5-d16
+  69              	MemManage_Handler:
+  70              	.LFB147:
+  96:Src/stm32h7xx_it.c **** }
+  97:Src/stm32h7xx_it.c **** 
+  98:Src/stm32h7xx_it.c **** /**
+  99:Src/stm32h7xx_it.c ****   * @brief This function handles Memory management fault.
+ 100:Src/stm32h7xx_it.c ****   */
+ 101:Src/stm32h7xx_it.c **** void MemManage_Handler(void)
+ 102:Src/stm32h7xx_it.c **** {
+  71              		.loc 1 102 1 view -0
+  72              		.cfi_startproc
+  73              		@ Volatile: function does not return.
+  74              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /tmp/cclI1Mc9.s 			page 4
+
+
+  75              		@ frame_needed = 0, uses_anonymous_args = 0
+  76              		@ link register save eliminated.
+  77              	.L5:
+ 103:Src/stm32h7xx_it.c ****   /* USER CODE BEGIN MemoryManagement_IRQn 0 */
+ 104:Src/stm32h7xx_it.c **** 
+ 105:Src/stm32h7xx_it.c ****   /* USER CODE END MemoryManagement_IRQn 0 */
+ 106:Src/stm32h7xx_it.c ****   while (1)
+  78              		.loc 1 106 3 discriminator 1 view .LVU6
+ 107:Src/stm32h7xx_it.c ****   {
+ 108:Src/stm32h7xx_it.c ****     /* USER CODE BEGIN W1_MemoryManagement_IRQn 0 */
+ 109:Src/stm32h7xx_it.c ****     /* USER CODE END W1_MemoryManagement_IRQn 0 */
+ 110:Src/stm32h7xx_it.c ****   }
+  79              		.loc 1 110 3 discriminator 1 view .LVU7
+  80 0000 FEE7     		b	.L5
+  81              		.cfi_endproc
+  82              	.LFE147:
+  84              		.section	.text.BusFault_Handler,"ax",%progbits
+  85              		.align	1
+  86              		.global	BusFault_Handler
+  87              		.syntax unified
+  88              		.thumb
+  89              		.thumb_func
+  90              		.fpu fpv5-d16
+  92              	BusFault_Handler:
+  93              	.LFB148:
+ 111:Src/stm32h7xx_it.c **** }
+ 112:Src/stm32h7xx_it.c **** 
+ 113:Src/stm32h7xx_it.c **** /**
+ 114:Src/stm32h7xx_it.c ****   * @brief This function handles Pre-fetch fault, memory access fault.
+ 115:Src/stm32h7xx_it.c ****   */
+ 116:Src/stm32h7xx_it.c **** void BusFault_Handler(void)
+ 117:Src/stm32h7xx_it.c **** {
+  94              		.loc 1 117 1 view -0
+  95              		.cfi_startproc
+  96              		@ Volatile: function does not return.
+  97              		@ args = 0, pretend = 0, frame = 0
+  98              		@ frame_needed = 0, uses_anonymous_args = 0
+  99              		@ link register save eliminated.
+ 100              	.L7:
+ 118:Src/stm32h7xx_it.c ****   /* USER CODE BEGIN BusFault_IRQn 0 */
+ 119:Src/stm32h7xx_it.c **** 
+ 120:Src/stm32h7xx_it.c ****   /* USER CODE END BusFault_IRQn 0 */
+ 121:Src/stm32h7xx_it.c ****   while (1)
+ 101              		.loc 1 121 3 discriminator 1 view .LVU9
+ 122:Src/stm32h7xx_it.c ****   {
+ 123:Src/stm32h7xx_it.c ****     /* USER CODE BEGIN W1_BusFault_IRQn 0 */
+ 124:Src/stm32h7xx_it.c ****     /* USER CODE END W1_BusFault_IRQn 0 */
+ 125:Src/stm32h7xx_it.c ****   }
+ 102              		.loc 1 125 3 discriminator 1 view .LVU10
+ 103 0000 FEE7     		b	.L7
+ 104              		.cfi_endproc
+ 105              	.LFE148:
+ 107              		.section	.text.UsageFault_Handler,"ax",%progbits
+ 108              		.align	1
+ 109              		.global	UsageFault_Handler
+ 110              		.syntax unified
+ 111              		.thumb
+ARM GAS  /tmp/cclI1Mc9.s 			page 5
+
+
+ 112              		.thumb_func
+ 113              		.fpu fpv5-d16
+ 115              	UsageFault_Handler:
+ 116              	.LFB149:
+ 126:Src/stm32h7xx_it.c **** }
+ 127:Src/stm32h7xx_it.c **** 
+ 128:Src/stm32h7xx_it.c **** /**
+ 129:Src/stm32h7xx_it.c ****   * @brief This function handles Undefined instruction or illegal state.
+ 130:Src/stm32h7xx_it.c ****   */
+ 131:Src/stm32h7xx_it.c **** void UsageFault_Handler(void)
+ 132:Src/stm32h7xx_it.c **** {
+ 117              		.loc 1 132 1 view -0
+ 118              		.cfi_startproc
+ 119              		@ Volatile: function does not return.
+ 120              		@ args = 0, pretend = 0, frame = 0
+ 121              		@ frame_needed = 0, uses_anonymous_args = 0
+ 122              		@ link register save eliminated.
+ 123              	.L9:
+ 133:Src/stm32h7xx_it.c ****   /* USER CODE BEGIN UsageFault_IRQn 0 */
+ 134:Src/stm32h7xx_it.c **** 
+ 135:Src/stm32h7xx_it.c ****   /* USER CODE END UsageFault_IRQn 0 */
+ 136:Src/stm32h7xx_it.c ****   while (1)
+ 124              		.loc 1 136 3 discriminator 1 view .LVU12
+ 137:Src/stm32h7xx_it.c ****   {
+ 138:Src/stm32h7xx_it.c ****     /* USER CODE BEGIN W1_UsageFault_IRQn 0 */
+ 139:Src/stm32h7xx_it.c ****     /* USER CODE END W1_UsageFault_IRQn 0 */
+ 140:Src/stm32h7xx_it.c ****   }
+ 125              		.loc 1 140 3 discriminator 1 view .LVU13
+ 126 0000 FEE7     		b	.L9
+ 127              		.cfi_endproc
+ 128              	.LFE149:
+ 130              		.section	.text.DebugMon_Handler,"ax",%progbits
+ 131              		.align	1
+ 132              		.global	DebugMon_Handler
+ 133              		.syntax unified
+ 134              		.thumb
+ 135              		.thumb_func
+ 136              		.fpu fpv5-d16
+ 138              	DebugMon_Handler:
+ 139              	.LFB150:
+ 141:Src/stm32h7xx_it.c **** }
+ 142:Src/stm32h7xx_it.c **** 
+ 143:Src/stm32h7xx_it.c **** /**
+ 144:Src/stm32h7xx_it.c ****   * @brief This function handles Debug monitor.
+ 145:Src/stm32h7xx_it.c ****   */
+ 146:Src/stm32h7xx_it.c **** void DebugMon_Handler(void)
+ 147:Src/stm32h7xx_it.c **** {
+ 140              		.loc 1 147 1 view -0
+ 141              		.cfi_startproc
+ 142              		@ args = 0, pretend = 0, frame = 0
+ 143              		@ frame_needed = 0, uses_anonymous_args = 0
+ 144              		@ link register save eliminated.
+ 148:Src/stm32h7xx_it.c ****   /* USER CODE BEGIN DebugMonitor_IRQn 0 */
+ 149:Src/stm32h7xx_it.c **** 
+ 150:Src/stm32h7xx_it.c ****   /* USER CODE END DebugMonitor_IRQn 0 */
+ 151:Src/stm32h7xx_it.c ****   /* USER CODE BEGIN DebugMonitor_IRQn 1 */
+ 152:Src/stm32h7xx_it.c **** 
+ARM GAS  /tmp/cclI1Mc9.s 			page 6
+
+
+ 153:Src/stm32h7xx_it.c ****   /* USER CODE END DebugMonitor_IRQn 1 */
+ 154:Src/stm32h7xx_it.c **** }
+ 145              		.loc 1 154 1 view .LVU15
+ 146 0000 7047     		bx	lr
+ 147              		.cfi_endproc
+ 148              	.LFE150:
+ 150              		.section	.text.TIM1_UP_IRQHandler,"ax",%progbits
+ 151              		.align	1
+ 152              		.global	TIM1_UP_IRQHandler
+ 153              		.syntax unified
+ 154              		.thumb
+ 155              		.thumb_func
+ 156              		.fpu fpv5-d16
+ 158              	TIM1_UP_IRQHandler:
+ 159              	.LFB151:
+ 155:Src/stm32h7xx_it.c **** 
+ 156:Src/stm32h7xx_it.c **** /******************************************************************************/
+ 157:Src/stm32h7xx_it.c **** /* STM32H7xx Peripheral Interrupt Handlers                                    */
+ 158:Src/stm32h7xx_it.c **** /* Add here the Interrupt Handlers for the used peripherals.                  */
+ 159:Src/stm32h7xx_it.c **** /* For the available peripheral interrupt handler names,                      */
+ 160:Src/stm32h7xx_it.c **** /* please refer to the startup file (startup_stm32h7xx.s).                    */
+ 161:Src/stm32h7xx_it.c **** /******************************************************************************/
+ 162:Src/stm32h7xx_it.c **** 
+ 163:Src/stm32h7xx_it.c **** /**
+ 164:Src/stm32h7xx_it.c ****   * @brief This function handles TIM1 update interrupt.
+ 165:Src/stm32h7xx_it.c ****   */
+ 166:Src/stm32h7xx_it.c **** void TIM1_UP_IRQHandler(void)
+ 167:Src/stm32h7xx_it.c **** {
+ 160              		.loc 1 167 1 view -0
+ 161              		.cfi_startproc
+ 162              		@ args = 0, pretend = 0, frame = 0
+ 163              		@ frame_needed = 0, uses_anonymous_args = 0
+ 164 0000 08B5     		push	{r3, lr}
+ 165              	.LCFI0:
+ 166              		.cfi_def_cfa_offset 8
+ 167              		.cfi_offset 3, -8
+ 168              		.cfi_offset 14, -4
+ 168:Src/stm32h7xx_it.c ****   /* USER CODE BEGIN TIM1_UP_IRQn 0 */
+ 169:Src/stm32h7xx_it.c **** 
+ 170:Src/stm32h7xx_it.c ****   /* USER CODE END TIM1_UP_IRQn 0 */
+ 171:Src/stm32h7xx_it.c ****   HAL_TIM_IRQHandler(&htim1);
+ 169              		.loc 1 171 3 view .LVU17
+ 170 0002 0248     		ldr	r0, .L13
+ 171 0004 FFF7FEFF 		bl	HAL_TIM_IRQHandler
+ 172              	.LVL0:
+ 172:Src/stm32h7xx_it.c ****   /* USER CODE BEGIN TIM1_UP_IRQn 1 */
+ 173:Src/stm32h7xx_it.c **** 
+ 174:Src/stm32h7xx_it.c ****   /* USER CODE END TIM1_UP_IRQn 1 */
+ 175:Src/stm32h7xx_it.c **** }
+ 173              		.loc 1 175 1 is_stmt 0 view .LVU18
+ 174 0008 08BD     		pop	{r3, pc}
+ 175              	.L14:
+ 176 000a 00BF     		.align	2
+ 177              	.L13:
+ 178 000c 00000000 		.word	htim1
+ 179              		.cfi_endproc
+ 180              	.LFE151:
+ARM GAS  /tmp/cclI1Mc9.s 			page 7
+
+
+ 182              		.text
+ 183              	.Letext0:
+ 184              		.file 2 "/usr/arm-none-eabi/include/machine/_default_types.h"
+ 185              		.file 3 "/usr/arm-none-eabi/include/sys/_stdint.h"
+ 186              		.file 4 "Drivers/CMSIS/Include/core_cm7.h"
+ 187              		.file 5 "Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h"
+ 188              		.file 6 "Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h743xx.h"
+ 189              		.file 7 "/usr/arm-none-eabi/include/sys/lock.h"
+ 190              		.file 8 "/usr/arm-none-eabi/include/sys/_types.h"
+ 191              		.file 9 "/usr/lib/gcc/arm-none-eabi/9.1.0/include/stddef.h"
+ 192              		.file 10 "/usr/arm-none-eabi/include/sys/reent.h"
+ 193              		.file 11 "/usr/arm-none-eabi/include/math.h"
+ 194              		.file 12 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h"
+ 195              		.file 13 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma.h"
+ 196              		.file 14 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash.h"
+ 197              		.file 15 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h"
+ 198              		.file 16 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h"
+ARM GAS  /tmp/cclI1Mc9.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 stm32h7xx_it.c
+     /tmp/cclI1Mc9.s:17     .text.NMI_Handler:0000000000000000 $t
+     /tmp/cclI1Mc9.s:25     .text.NMI_Handler:0000000000000000 NMI_Handler
+     /tmp/cclI1Mc9.s:39     .text.HardFault_Handler:0000000000000000 $t
+     /tmp/cclI1Mc9.s:46     .text.HardFault_Handler:0000000000000000 HardFault_Handler
+     /tmp/cclI1Mc9.s:62     .text.MemManage_Handler:0000000000000000 $t
+     /tmp/cclI1Mc9.s:69     .text.MemManage_Handler:0000000000000000 MemManage_Handler
+     /tmp/cclI1Mc9.s:85     .text.BusFault_Handler:0000000000000000 $t
+     /tmp/cclI1Mc9.s:92     .text.BusFault_Handler:0000000000000000 BusFault_Handler
+     /tmp/cclI1Mc9.s:108    .text.UsageFault_Handler:0000000000000000 $t
+     /tmp/cclI1Mc9.s:115    .text.UsageFault_Handler:0000000000000000 UsageFault_Handler
+     /tmp/cclI1Mc9.s:131    .text.DebugMon_Handler:0000000000000000 $t
+     /tmp/cclI1Mc9.s:138    .text.DebugMon_Handler:0000000000000000 DebugMon_Handler
+     /tmp/cclI1Mc9.s:151    .text.TIM1_UP_IRQHandler:0000000000000000 $t
+     /tmp/cclI1Mc9.s:158    .text.TIM1_UP_IRQHandler:0000000000000000 TIM1_UP_IRQHandler
+     /tmp/cclI1Mc9.s:178    .text.TIM1_UP_IRQHandler:000000000000000c $d
+
+UNDEFINED SYMBOLS
+HAL_TIM_IRQHandler
+htim1

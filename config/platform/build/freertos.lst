@@ -1,0 +1,39 @@
+ARM GAS  /tmp/ccuZWEc9.s 			page 1
+
+
+   1              		.cpu cortex-m7
+   2              		.eabi_attribute 28, 1
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 1
+  10              		.eabi_attribute 34, 1
+  11              		.eabi_attribute 18, 4
+  12              		.file	"freertos.c"
+  13              		.text
+  14              	.Ltext0:
+  15              		.cfi_sections	.debug_frame
+  16              	.Letext0:
+  17              		.file 1 "/usr/arm-none-eabi/include/machine/_default_types.h"
+  18              		.file 2 "/usr/arm-none-eabi/include/sys/_stdint.h"
+  19              		.file 3 "Inc/FreeRTOSConfig.h"
+  20              		.file 4 "Drivers/CMSIS/Include/core_cm7.h"
+  21              		.file 5 "Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h"
+  22              		.file 6 "/usr/arm-none-eabi/include/sys/lock.h"
+  23              		.file 7 "/usr/arm-none-eabi/include/sys/_types.h"
+  24              		.file 8 "/usr/lib/gcc/arm-none-eabi/9.1.0/include/stddef.h"
+  25              		.file 9 "/usr/arm-none-eabi/include/sys/reent.h"
+  26              		.file 10 "/usr/arm-none-eabi/include/math.h"
+  27              		.file 11 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h"
+  28              		.file 12 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash.h"
+  29              		.file 13 "Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h"
+ARM GAS  /tmp/ccuZWEc9.s 			page 2
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 freertos.c
+
+NO UNDEFINED SYMBOLS
