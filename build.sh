@@ -1,5 +1,6 @@
 #!/bin/bash
 
+srcdir=.
 buildir=build
 
 if [ -d "$buildir" ]; then
@@ -7,4 +8,4 @@ if [ -d "$buildir" ]; then
     rm -r $buildir
 fi
 
-meson $buildir --cross-file config/cross_linux.txt --buildtype debug
+meson $srcdir $buildir --cross-file config/cross_linux.txt
