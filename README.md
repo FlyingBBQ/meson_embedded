@@ -35,7 +35,7 @@ git subtree add --prefix test/framework https://github.com/onqtam/doctest.git ma
 ```
 git subtree pull --prefix test/framework https://github.com/onqtam/doctest.git master --squash
 ```
-It is not easy to see which parts of the project are git subtrees. Doctest comes with a `meson.build` file. Additionally, doctest has built-in support for including subprojects. Either from files or git repositories by using a [wrap-file](https://mesonbuild.com/Wrap-dependency-system-manual.html).
+It is not easy to see which parts of the project are git subtrees. Doctest does come with its own `meson.build` file. Additionally, meson has built-in support for including subprojects; either from files or git repositories by using a [wrap-file](https://mesonbuild.com/Wrap-dependency-system-manual.html).
 If testing is enabled from the `meson_options.txt`, doctest is automatically pulled from git and included in the project. Test can easily be added by adding the sources to the `test_src` object in `meson.build` files.
 To run the test, simply use:
 ```
