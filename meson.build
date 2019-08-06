@@ -41,6 +41,13 @@ c_link_args += '-T@0@/@1@'.format(meson.current_source_dir(), linkerfile[0])
 # include other meson.build files
 subdir('src')
 
+if get_option('enable_docs')
+  subdir('docs')
+endif
+if get_option('enable_tests')
+  subdir('tests')
+endif
+
 # compile the main executable
 main = executable('main',
   [project_src, startupfile],
