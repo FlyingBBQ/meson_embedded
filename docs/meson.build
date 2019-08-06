@@ -25,4 +25,4 @@ doxyfile = configure_file(
 
 doxygen = find_program('doxygen')
 
-doc_target = run_target('doc', command: [doxygen, doxyfile])
+doc_target = run_target('docs', command: [doxygen, doxyfile])
