@@ -23,7 +23,7 @@ if meson.is_cross_build()
   c_link_args = meson.get_cross_property('c_cross_link_args')
 endif
 
-# microcontroller options + extra files
+# microcontroller specific settings
 defines = [
   '-DUSE_HAL_DRIVER',
   '-DSTM32H743xx',
@@ -38,15 +38,27 @@ c_args += defines
 # add the linker script to flags
 c_link_args += '-T@0@/@1@'.format(meson.current_source_dir(), linkerfile[0])
 
-# include other meson.build files
-subdir('src')
-
+# include doxygen generation if enabled
 if get_option('enable_docs')
   subdir('docs')
 endif
+
+# include tests if enabled
 if get_option('enable_tests')
-  subdir('tests')
+  # clone the git repository and install it in the subprojects directory
+  # the remote git url is specified in subprojects/doctest.wrap
+  doctest_git = subproject('doctest')
+  # get the doctest dependency from the subproject
+  doctest_dep = doctest_git.get_variable('doctest_dep')
+  # include the test directory
+  subdir('test')
+else
+  # disable test globally and do not compile them
+  defines += '-DDOCTEST_CONFIG_DISABLE'
 endif
+
+# include the source files of the project
+subdir('src')
 
 # compile the main executable
 main = executable('main',
@@ -55,11 +67,11 @@ main = executable('main',
   c_args : c_args,
   link_args : [c_link_args, '-Wl,--gc-sections'],
   dependencies : link_deps,
-  include_directories : [project_inc] )
+  include_directories : [project_inc])
 
 # cutom target to always convert main.elf to binary
 mainbin = custom_target('main.bin',
   output : 'main.bin',
   build_by_default : true,
   command : [objcopy, ['-O', 'binary', '-S', main.full_path(), 'main.bin']], 
-  depends : main )
+  depends : main)

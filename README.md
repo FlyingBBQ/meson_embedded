@@ -27,11 +27,18 @@ This project has the following dependencies:
 
 ## Testing
 
-The current test framework is Doctest, a single header C++ unit testing framework. It was added as a `git subtree` as we will only pull from this repository. If we would like to push as well, it should be added as `submodule`. Adding the test repository was done with the following command:
+The current test framework is Doctest, a single header C++ unit testing framework. ~~It was added as a `git subtree` as we will only pull from this repository. If we would like to push as well, it should be added as `submodule`. Adding the test repository was done with the following command:~~
 ```
 git subtree add --prefix test/framework https://github.com/onqtam/doctest.git master --squash
 ```
-Updating the test framework is simply done by using the same command, but this time a pull:
+~~Updating the test framework is simply done by using the same command, but this time a pull:~~
 ```
 git subtree pull --prefix test/framework https://github.com/onqtam/doctest.git master --squash
 ```
+It is not easy to see which parts of the project are git subtrees. Doctest comes with a `meson.build` file. Additionally, doctest has built-in support for including subprojects. Either from files or git repositories by using a [wrap-file](https://mesonbuild.com/Wrap-dependency-system-manual.html).
+If testing is enabled from the `meson_options.txt`, doctest is automatically pulled from git and included in the project. Test can easily be added by adding the sources to the `test_src` object in `meson.build` files.
+To run the test, simply use:
+```
+ninja test
+```
+

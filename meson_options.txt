@@ -1,6 +1,6 @@
 option('enable_tests',
   type : 'boolean',
-  value : false,
+  value : true,
   description : 'Enable testing'
 )
 

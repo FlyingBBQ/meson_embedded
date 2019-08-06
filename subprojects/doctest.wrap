@@ -1,0 +1,4 @@
+[wrap-git]
+directory = doctest
+url = https://github.com/onqtam/doctest.git
+revision = head
