@@ -24,3 +24,14 @@ This project has the following dependencies:
 ### Linux
 
 ### Windows
+
+## Testing
+
+The current test framework is Doctest, a single header C++ unit testing framework. It was added as a `git subtree` as we will only pull from this repository. If we would like to push as well, it should be added as `submodule`. Adding the test repository was done with the following command:
+```
+git subtree add --prefix test/framework https://github.com/onqtam/doctest.git master --squash
+```
+Updating the test framework is simply done by using the same command, but this time a pull:
+```
+git subtree pull --prefix test/framework https://github.com/onqtam/doctest.git master --squash
+```
