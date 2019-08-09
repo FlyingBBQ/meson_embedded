@@ -5,21 +5,19 @@ ld = 'arm-none-eabi-ld'
 ar = 'arm-none-eabi-ar'
 as = 'arm-none-eabi-as'
 strip = 'arm-none-eabi-strip'
-objcopy = 'arm-none-eabi-objcopy'
-size = 'arm-none-eabi-size'
 
 [properties]
-c_cross_args = [
+c_args = [
     '-mcpu=cortex-m7',
     '-mthumb',
     '-mfpu=fpv5-d16',
     '-mfloat-abi=hard',
     '-Wall',
     '-ffunction-sections',
-    '-fdata-sections'
+    '-fdata-sections',
     ]
 
-c_cross_link_args = [
+c_link_args = [
     '-mcpu=cortex-m7',
     '-mthumb',
     '-mfpu=fpv5-d16',
