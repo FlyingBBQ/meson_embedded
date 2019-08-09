@@ -1,17 +1,19 @@
-option('enable_tests',
+option('enable_test',
   type : 'boolean',
   value : true,
-  description : 'Enable testing'
-)
+  description : 'Enable tests')
+
+option('test_framework',
+  type : 'string',
+  value : 'cpputest',
+  description : 'Which test framework to use')
 
 option('enable_docs',
   type : 'boolean',
   value : true,
-  description : 'Generate documentation with doxygen'
-)
+  description : 'Generate documentation with doxygen')
 
 option('enable_graphs',
   type : 'boolean',
   value : true,
-  description : 'Enable doxygen to generate graphs using dot'
-)
+  description : 'Enable doxygen to generate graphs using dot')

@@ -8,6 +8,4 @@ if [ -d "$buildir" ]; then
     rm -r $buildir
 fi
 
-meson $srcdir $buildir --cross-file config/cross_linux.txt --buildtype=debugoptimized
-
-cd $buildir
+meson $srcdir $buildir --cross-file config/cross_linux.txt --buildtype=debugoptimized && cd $buildir

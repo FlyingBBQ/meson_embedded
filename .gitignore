@@ -1,3 +1,5 @@
 build/
 config/platform/build/
-subprojects/doctest/
+
+subprojects/*
+!subprojects/*.wrap
