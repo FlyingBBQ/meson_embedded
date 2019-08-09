@@ -3,11 +3,6 @@ option('enable_test',
   value : true,
   description : 'Enable tests')
 
-option('test_framework',
-  type : 'string',
-  value : 'cpputest',
-  description : 'Which test framework to use')
-
 option('enable_docs',
   type : 'boolean',
   value : true,
