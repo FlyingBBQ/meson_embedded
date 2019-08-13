@@ -55,37 +55,8 @@ endif
 
 # include tests if enabled
 if get_option('enable_test')
-  framework = get_option('test_framework')
-
-  if framework == 'doctest'
-    # clone the git repository and install it in the subprojects directory
-    # the remote git url is specified in subprojects/doctest.wrap
-    doctest_git = subproject('doctest')
-    # get the doctest dependency from the subproject
-    doctest_dep = doctest_git.get_variable('doctest_dep')
-    # include the test directory
-    subdir('test')
-  #else
-  #  # disable test globally and do not compile them
-  #  defines += '-DDOCTEST_CONFIG_DISABLE'
-  endif
-
-  if framework == 'cpputest'
-    # import the cmake module to build external cmake projects
-    cmake = import('cmake')
-    # get the subproject from the wrap-git file
-    cpputest_cmake = cmake.subproject('cpputest')
-    # WARNING: this currently doesn't work
-    lib_cpputest = cpputest_cmake.dependency('CppUTest')
-    lib_cpputestext = cpputest_cmake.dependency('CppUTestExt')
-  endif
-
-  if framework == 'gtest'
-    gtest_git = subproject('gtest')
-  endif
-
+  subdir('test')
 endif
-
 
 # include the source files of the project
 subdir('src')
