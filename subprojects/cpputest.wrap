@@ -1,4 +1,0 @@
-[wrap-git]
-directory = cpputest
-url = https://github.com/cpputest/cpputest
-revision = head
