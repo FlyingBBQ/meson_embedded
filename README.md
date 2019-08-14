@@ -31,14 +31,14 @@ The syntax is not intuitive, especially before modern CMake 3.0.
 Make is still a powerfull tool, but implementing non-recursive Make for large projects, especially with multiple targets, becomes complex, and maintaining it is a nightmare.
 
 Goals of this project:
-* Build speed is king
-* Configuring and maintaining the build system should take minimal time
-* Cross-platform support (windows/linux)
-* Cross-compiling
-* Easy integration of submodules or third-party software
-* Includes unit test framework
-* Documentation with doxygen
-* Auto-formatting code
+- [x] Build speed is king
+- [ ] Configuring and maintaining the build system should take minimal time
+- [ ] Cross-platform support (windows/linux)
+- [x] Cross-compiling
+- [x] Easy integration of submodules or third-party software
+- [x] Includes unit test framework
+- [x] Documentation with doxygen
+- [ ] Auto-formatting code
 
 **[Back to top](#table-of-contents)**
 
