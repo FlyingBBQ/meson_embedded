@@ -1,5 +1,10 @@
 cpputest_inc = include_directories('CppUTest/include', is_system : true)
 
+memoryleak = files(
+  'CppUTest/include/CppUTest/MemoryLeakDetectorNewMacros.h',
+  'CppUTest/include/CppUTest/MemoryLeakDetectorMallocMacros.h'
+)
+
 cpputest_src = files(
   'CppUTest/src/CppUTest/CommandLineArguments.cpp',
   'CppUTest/src/CppUTest/MemoryLeakWarningPlugin.cpp',
@@ -56,6 +61,12 @@ cpputest_dep = declare_dependency(
   link_with : [cpputest_lib, cpputestext_lib],
   include_directories : cpputest_inc)
 
+memleak_arg = []
+# parse memleak files
+foreach memleak : memoryleak
+  memleak_arg += ['-include @0@/@1@'.format(meson.source_root(), memleak)]
+endforeach
+
 # add your test sources
 test_src = files('sometest.cpp')
 
@@ -63,10 +74,9 @@ test_exe = executable(
   'test_exe',
   [test_src, 'cpputest_main.cpp'],
   link_with : cpputest_lib,
-  #c_args : '-include CppUTest/include/CppUTest/MemoryLeakDetectorMallocMacros.h',
-  #cpp_args : [
-  #  '-include CppUTest/include/CppUTest/MemoryLeakDetectorMallocMacros.h',
-  #  '-include CppUTest/include/CppUTest/MemoryLeakDetectorNewMacros.h'],
+  c_args : '-include ../../test/CppUTest/include/CppUTest/MemoryLeakDetectorMallocMacros.h',
+  cpp_args : '-include ../../test/CppUTest/include/CppUTest/MemoryLeakDetectorNewMacros.h',
+  #cpp_args : memleak_arg[0],
   override_options : ['b_asneeded=false', 'b_lundef=false'],
   #dependencies : [cpputest_dep, cpputestext_dep]
   include_directories : cpputest_inc,
