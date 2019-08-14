@@ -15,6 +15,7 @@ Using this project should make it easy to cross-compile on different platforms, 
 1. [Usage](#usage)
     1. [Building](#building)
     1. [Testing](#testing)
+    1. [Subprojects](#subprojects)
 1. [Additional information](#additional-information)
 
 ## About
@@ -153,21 +154,86 @@ Download [STM32CubeProgrammer](https://www.st.com/en/development-tools/stm32cube
 
 **[Back to top](#table-of-contents)**
 
-## Testing
+## Usage
 
-The current test framework is Doctest, a single header C++ unit testing framework. ~~It was added as a `git subtree` as we will only pull from this repository. If we would like to push as well, it should be added as `submodule`. Adding the test repository was done with the following command:~~
+### Building
+
+After cloning this project and installing the dependencies, it's time to build the project.
+Meson only works from the Terminal / Command Line, which keeps usage on both Windows and Linux the same.
+
+Start by navigating to the root directory of this project:
+```
+cd <root_directory>
+```
+
+Before you can compile your code, Meson needs to configure the project based on your system.
+The syntax to do this looks as follows:
+```
+meson <source_dir> <build_dir> [options]
+```
+
+As an example, have a look at the command found in `build.sh`:
+```
+meson . build/debug --cross-file config/cross_linux.txt --buildtype=debugoptimized
+```
+This command will take the current directory `.` as source directory, which is the default if no source directory is given.
+It will configure the project in the build directory `build/debug`.
+The project will be cross-compiled with the `config/cross_linux.txt` file, which contains all the compiler settings for the GNU Arm Embedded toolchain.
+The last option configures the [compiler optimization](https://mesonbuild.com/Builtin-options.html#core-options) for this project, which is `debugoptimized`.
+It is strongly advised to always configure a new build directory when changing cross-compile or optimization settings. for example:
+```
+meson build/release --buildtype=release
+```
+
+After Meson has configured the project successfully, navigate to the build directory.
+```
+cd build/debug
+```
+
+From here, we can run Ninja to compile our code, similar to GNU Make:
+```
+ninja
+ninja clean
+```
+
+Additional Ninja commands can be added by using [`run_target`](https://mesonbuild.com/Run-targets.html#page-description) from Meson.
+```bash
+ninja size
+ninja flash  # if STM32CubeProgrammer is installed and added to path
+```
+
+**[Back to top](#table-of-contents)**
+
+### Testing
+
+The current test framework is CppUTest, a C++ unit testing framework desinged for embedded systems.
+It was added as a `git subtree` as we will only pull from this repository.
+If we would like to push as well, it should be added as `submodule`.
+Adding the test repository was done with the following command:
 ```
 git subtree add --prefix test/framework https://github.com/onqtam/doctest.git master --squash
 ```
-~~Updating the test framework is simply done by using the same command, but this time a pull:~~
+Updating the test framework is simply done by using the same command, but this time a pull:
 ```
 git subtree pull --prefix test/framework https://github.com/onqtam/doctest.git master --squash
 ```
-It is not easy to see which parts of the project are git subtrees. Doctest does come with its own `meson.build` file. Additionally, meson has built-in support for including subprojects; either from files or git repositories by using a [wrap-file](https://mesonbuild.com/Wrap-dependency-system-manual.html).
-If testing is enabled from the `meson_options.txt`, doctest is automatically pulled from git and included in the project. Test can easily be added by adding the sources to the `test_src` object in `meson.build` files.
-To run the test, simply use:
+
+Running the test can be done directly with Ninja:
 ```
 ninja test
 ```
+
+**[Back to top](#table-of-contents)**
+
+### Subprojects
+
+It is not easy to see which parts of the project are git subtrees.
+The built-in solution Meson offers for this are **subprojects**; which can be included either from files or git repositories by using a [wrap-file](https://mesonbuild.com/Wrap-dependency-system-manual.html).
+
+This does require the subproject to have a `meson.build` file.
+
+**[Back to top](#table-of-contents)**
+
+## Additional Information
 
 **[Back to top](#table-of-contents)**
