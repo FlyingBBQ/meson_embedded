@@ -10,6 +10,8 @@ Using this project should make it easy to cross-compile on different platforms, 
 1. [Getting Started](#getting-started)
     1. [Dependencies](#dependencies)
     1. [Installation](#installation)
+        1. [Linux](#linux)
+        1. [Windows](#windows)
 1. [Usage](#usage)
     1. [Building](#building)
     1. [Testing](#testing)
@@ -121,9 +123,38 @@ Doxygen
 sudo apt-get install doxygen graphiz
 ```
 
-### Windows
+**Intalling STM32CubeProgrammer:**
+Download [STM32CubeProgrammer](https://www.st.com/en/development-tools/stm32cubeprog.html) from ST (make an account in case you do not have one).
+```
+unzip en.stm32cubeprog.zip -d <destination_dir>
+```
+
+Run the installer
+```
+./SetupSTM32CubeProgrammer-2.1.0.linux
+```
+
 **[Back to top](#table-of-contents)**
 
+### Windows
+
+The easiest way to intall Meson and Ninja on windows is by using the MSI installer:
+[MSI installer](https://github.com/mesonbuild/meson/releases)
+
+The GNU Arm Embedded toolchain can be downloaded from arm (win32-sha2 is recommended):
+[GNU Arm Embedded toolchain](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads)
+Check the box to add the toolchain to your path!
+
+Doxygen can be downloaded from the official website:
+[Doxygen](http://www.doxygen.nl/download.html)
+Check the box to add Doxygen to your path!
+
+In order to generate graphs with Doxygen, graphiz is needed, which can be downloaded from here:
+[Graphiz](https://graphviz.gitlab.io/download/)
+
+Download [STM32CubeProgrammer](https://www.st.com/en/development-tools/stm32cubeprog.html) from ST (make an account in case you do not have one).
+
+**[Back to top](#table-of-contents)**
 
 ## Testing
 
