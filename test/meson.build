@@ -1,5 +1,4 @@
 cpputest_inc = include_directories('CppUTest/include', is_system : true)
-#cpputestext_inc = include_directories('CppUTest/include/CppUTestExt', is_system : true)
 
 cpputest_src = files(
   'CppUTest/src/CppUTest/CommandLineArguments.cpp',
@@ -39,32 +38,35 @@ cpputestext_src = files(
   'CppUTest/src/CppUTestExt/MockSupport.cpp'
 )
 
-cpputest_dep = declare_dependency(
-  include_directories : cpputest_inc,
-  sources : cpputest_src)
+platform_src = files('CppUTest/src/Platforms/Gcc/UtestPlatform.cpp')
 
-cpputestext_dep = declare_dependency(
-  include_directories : cpputest_inc,
-  sources : cpputestext_src)
-
+# build the libraries
 cpputest_lib = static_library('cpputest_lib',
-  dependencies : cpputest_dep,
-  native : true)
-
-test_lib = static_library('test_lib',
+  [cpputest_src, platform_src],
   include_directories : cpputest_inc,
-  sources : cpputest_src,
   native : true)
 
+cpputestext_lib = static_library('cpputestext_lib',
+  [cpputestext_src, platform_src],
+  include_directories : cpputest_inc,
+  native : true)
+
+# dependency to use when making test executable
+cpputest_dep = declare_dependency(
+  link_with : [cpputest_lib, cpputestext_lib],
+  include_directories : cpputest_inc)
+
+# add your test sources
 test_src = files('sometest.cpp')
 
 test_exe = executable(
   'test_exe',
   [test_src, 'cpputest_main.cpp'],
-  link_whole : test_lib,
-  c_args : '-include CppUTest/include/CppUTest/MemoryLeakDetectorMallocMacros.h'
-  cpp_args : ['-include CppUTest/include/CppUTest/MemoryLeakDetectorMallocMacros.h',
-    '-include CppUTest/include/CppUTest/MemoryLeakDetectorNewMacros.h'],
+  link_with : cpputest_lib,
+  #c_args : '-include CppUTest/include/CppUTest/MemoryLeakDetectorMallocMacros.h',
+  #cpp_args : [
+  #  '-include CppUTest/include/CppUTest/MemoryLeakDetectorMallocMacros.h',
+  #  '-include CppUTest/include/CppUTest/MemoryLeakDetectorNewMacros.h'],
   override_options : ['b_asneeded=false', 'b_lundef=false'],
   #dependencies : [cpputest_dep, cpputestext_dep]
   include_directories : cpputest_inc,
