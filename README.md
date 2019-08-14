@@ -236,4 +236,7 @@ This does require the subproject to have a `meson.build` file.
 
 ## Additional Information
 
+Building a Test Framework as subproject in Meson:
+[https://github.com/mesonbuild/meson/issues/4605#issuecomment-519918511](https://github.com/mesonbuild/meson/issues/4605#issuecomment-519918511)
+
 **[Back to top](#table-of-contents)**
