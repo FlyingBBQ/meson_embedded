@@ -1,0 +1,35 @@
+[binaries]
+c = 'arm-none-eabi-gcc'
+cpp = 'arm-none-eabi-g++'
+ld = 'arm-none-eabi-ld'
+ar = 'arm-none-eabi-ar'
+as = 'arm-none-eabi-as'
+strip = 'arm-none-eabi-strip'
+
+[properties]
+c_args = [
+    '-mcpu=cortex-m7',
+    '-mthumb',
+    '-mfpu=fpv5-d16',
+    '-mfloat-abi=hard',
+    '-Wall',
+    '-ffunction-sections',
+    '-fdata-sections',
+    ]
+
+c_link_args = [
+    '-mcpu=cortex-m7',
+    '-mthumb',
+    '-mfpu=fpv5-d16',
+    '-mfloat-abi=hard',
+    '-specs=nano.specs',
+    '-lc',
+    '-lm',
+    '-lnosys',
+    ]
+
+[host_machine]
+system = 'bare-metel'
+cpu_family = 'arm'
+cpu = 'cortex-m7'
+endian = 'little'

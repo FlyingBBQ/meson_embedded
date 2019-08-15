@@ -24,7 +24,9 @@ link_deps = []
 # find external programs from path (OS independant)
 size = find_program('arm-none-eabi-size')
 objcopy = find_program('arm-none-eabi-objcopy')
-stmprog = find_program('STM32_Programmer_CLI', required : false)
+stmprog = find_program(['STM32_Programmer_CLI',
+  'C:\Program Files (x86)\STMicroelectronics\STM32Cube\STM32CubeProgrammer\\bin\STM32_Programmer_CLI.exe'],
+ required : false)
 
 # retrieve properties from cross compile file
 if meson.is_cross_build()
