@@ -31,14 +31,22 @@ The syntax is not intuitive, especially before modern CMake 3.0.
 Make is still a powerfull tool, but implementing non-recursive Make for large projects, especially with multiple targets, becomes complex, and maintaining it is a nightmare.
 
 Goals of this project:
-- [x] Build speed is king
-- [ ] Configuring and maintaining the build system should take minimal time
-- [ ] Cross-platform support (windows/linux)
+* Build speed is king
+* Configuring and maintaining the build system should take minimal time
+* Cross-platform support (Linux/Windows)
+* Easy integration of submodules or third-party software
+* Includes tools for testing and analyzing code
+* Wel documented
+
+Features:
 - [x] Cross-compiling
-- [x] Easy integration of submodules or third-party software
-- [x] Includes unit test framework
+- [x] Unit testing framework
+- [ ] Code coverage
+- [ ] Static code analysis
 - [x] Documentation with doxygen
 - [ ] Auto-formatting code
+- [ ] Dockerfile for dependencies
+- [ ] Jenkinsfile
 
 **[Back to top](#table-of-contents)**
 
@@ -114,14 +122,14 @@ GNU Arm Embedded toolchain
 sudo apt-get install gcc-arm-none-eabi binutils-arm-none-eabi
 ```
 
-Debugging
-```
-sudo apt-get install gdb-arm-none-eabi openocd
-```
-
 Doxygen
 ```
 sudo apt-get install doxygen graphiz
+```
+
+Debugging
+```
+sudo apt-get install gdb-arm-none-eabi openocd
 ```
 
 **Intalling STM32CubeProgrammer:**
@@ -142,13 +150,19 @@ Run the installer
 
 1. The easiest way to intall Meson and Ninja on windows is by using the [MSI installer](https://github.com/mesonbuild/meson/releases)
 
+1. A native compiler is needed to compile the test framework for the build machine (Windows). The Choice is either MinGW or Cygwin.
+
+    * The MinGW installer can be downloaded from [here](https://osdn.net/projects/mingw/releases/). Use the MinGW setup to download at least the `mingw-base` and the `ming-pthread` library. Make sure to add [MinGW](http://mingw.org/wiki/Getting_Started) to your system path.
+
+    * Cygwin...
+
 1. The [GNU Arm Embedded toolchain](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads) can be downloaded from arm (win32-sha2 is recommended).
 Check the box to add the toolchain to your path!
 
 1. [Doxygen](http://www.doxygen.nl/download.html) can be downloaded from the official website.
 Check the box to add Doxygen to your path!
 
-    1. In order to generate graphs with Doxygen, [Graphiz](https://graphviz.gitlab.io/download/) is needed.
+    * In order to generate graphs with Doxygen, [Graphiz](https://graphviz.gitlab.io/download/) is needed.
 
 1. Download [STM32CubeProgrammer](https://www.st.com/en/development-tools/stm32cubeprog.html) from ST (make an account in case you do not have one).
 
