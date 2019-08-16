@@ -248,7 +248,7 @@ Assuming you have VScode, the GNU Arm Embedded toolchain, and OpenOCD installed,
        "executable": "${workspaceRoot}/build/debug/main.elf",
        "request": "attach",
        "type": "cortex-debug",
-       "servertype": "openocd"
+       "servertype": "openocd",
        "configFiles": [
            "interface/stlink.cfg"
            "target/stm32h7x.cfg"
@@ -258,12 +258,11 @@ Assuming you have VScode, the GNU Arm Embedded toolchain, and OpenOCD installed,
 Where `executable` and `configFiles` should match your board and `.elf`
 You can find the available `.cfg` configFiles in the location where you installed OpenOCD in the _scripts_ directory.
 
-1. Run the debugger
+Run the debugger!
 
 #### Linux
 
 The VScode debugging instructions for Windows are identical for Linux, since VScode is cross platform.
-
 Debugging from the command line is also possible with the following commands:
 
 1. Open a terminal and run `openocd -f interface/stlink.cfg -f target/stm32h7x.cfg -c "init"`
@@ -285,7 +284,7 @@ arm-none-eabi-gdb --eval-command="target remote localhost:3333" $1 \
                   --eval-command="monitor reset halt"
 ```
 Let's assume this script is called `debug.sh`.
-You could then run `debug.sh <yourfile.elf>`
+You could then run `debug.sh <yourfile.elf>` and start debugging!
 
 **[Back to top](#table-of-contents)**
 
@@ -323,5 +322,16 @@ This does require the subproject to have a `meson.build` file.
 
 Building a Test Framework as subproject in Meson:
 [https://github.com/mesonbuild/meson/issues/4605#issuecomment-519918511](https://github.com/mesonbuild/meson/issues/4605#issuecomment-519918511)
+
+Another good option for adding a Test Framework is to use it as a subproject that you build with a native configuration.
+You could then install the Test Framework libraries, and search for them from other projects.
+For example:
+```
+if not meson.is_cross_build()
+    install test libraries
+endif
+```
+Then build and install them with a non cross-build: `meson build/testframework`.
+From your cross-builds you just search for the depencencies: `test_framework = dependency(test_libs)`.
 
 **[Back to top](#table-of-contents)**
