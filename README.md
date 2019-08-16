@@ -14,6 +14,7 @@ Using this project should make it easy to cross-compile on different platforms, 
         1. [Windows](#windows)
 1. [Usage](#usage)
     1. [Building](#building)
+    1. [Debugging](#debugging)
     1. [Testing](#testing)
     1. [Subprojects](#subprojects)
 1. [Additional information](#additional-information)
@@ -166,6 +167,8 @@ Check the box to add Doxygen to your path!
 
 1. Download [STM32CubeProgrammer](https://www.st.com/en/development-tools/stm32cubeprog.html) from ST (make an account in case you do not have one).
 
+1. To debug your code OpenOCD is needed. [Download](https://github.com/gnu-mcu-eclipse/openocd/releases) the latest release (win32.zip recommended) and make sure to add the `bin` directory, containing the `openocd.exe`, to your path. For more information see [Debugging](#debugging).
+
 **[Back to top](#table-of-contents)**
 
 ## Usage
@@ -215,6 +218,74 @@ Additional Ninja commands can be added by using [`run_target`](https://mesonbuil
 ninja size
 ninja flash  # if STM32CubeProgrammer is installed and added to path
 ```
+
+**[Back to top](#table-of-contents)**
+
+### Debugging
+
+Writing good unit tests and using simple `printf()` over UART should catch 90% of your bugs.
+The debugger should always be your last line of defence.
+This sections describes how to debug your code using [VScode](https://code.visualstudio.com/) as graphical frontend.
+
+Reasons to use VScode over, for example, IDE's like Eclipse:
+* It's a simple text editor, no bloat
+* Awesome extensions
+* Integrates easily with external tools
+* Can configure it as a full IDE
+
+#### Windows
+
+Assuming you have VScode, the GNU Arm Embedded toolchain, and OpenOCD installed, the following configuration is needed:
+
+1. Open VScode and open the root folder of your Meson project
+1. Install the `Cortex-Debug` extension
+1. Go to _Debug > Add Configuration_ and pick _Cortex Debug: OpenOCD_
+1. Make the configuration the following:
+```json
+   {
+       "name": "Cortex Debug",
+       "cwd": "${workspaceRoot}",
+       "executable": "${workspaceRoot}/build/debug/main.elf",
+       "request": "attach",
+       "type": "cortex-debug",
+       "servertype": "openocd"
+       "configFiles": [
+           "interface/stlink.cfg"
+           "target/stm32h7x.cfg"
+       ]
+   }
+```
+Where `executable` and `configFiles` should match your board and `.elf`
+You can find the available `.cfg` configFiles in the location where you installed OpenOCD in the _scripts_ directory.
+
+1. Run the debugger
+
+#### Linux
+
+The VScode debugging instructions for Windows are identical for Linux, since VScode is cross platform.
+
+Debugging from the command line is also possible with the following commands:
+
+1. Open a terminal and run `openocd -f interface/stlink.cfg -f target/stm32h7x.cfg -c "init"`
+1. Open a new terminal, and `cd` to the directory of your `.elf`
+1. run `arm-none-eabi-gdb` then:
+    * `target remote localhost:3333`
+    * `file <yourfile.elf>`
+    * `monitor arm semihosting enable`
+    * `monitor reset halt`
+1. From this point you can set breakpoints, and step through your code.
+
+Of course typing these commands every time is quite cumbersome.
+Since we are on linux we can automate this with a simple shell script like:
+```bash
+#!/bin/sh
+
+arm-none-eabi-gdb --eval-command="target remote localhost:3333" $1 \
+                  --eval-command="monitor arm semihosting enable" \
+                  --eval-command="monitor reset halt"
+```
+Let's assume this script is called `debug.sh`.
+You could then run `debug.sh <yourfile.elf>`
 
 **[Back to top](#table-of-contents)**
 
