@@ -12,6 +12,7 @@ Using this project should make it easy to cross-compile on different platforms, 
     1. [Installation](#installation)
         1. [Linux](#linux)
         1. [Windows](#windows)
+        1. [Docker](#docker)
 1. [Usage](#usage)
     1. [Building](#building)
     1. [Debugging](#debugging)
@@ -46,7 +47,7 @@ Features:
 - [ ] Static code analysis
 - [x] Documentation with doxygen
 - [ ] Auto-formatting code
-- [ ] Dockerfile for dependencies
+- [x] Dockerfile for dependencies
 - [ ] Jenkinsfile
 
 **[Back to top](#table-of-contents)**
@@ -147,7 +148,7 @@ Run the installer
 
 **[Back to top](#table-of-contents)**
 
-### Windows
+#### Windows
 
 1. The easiest way to intall Meson and Ninja on windows is by using the [MSI installer](https://github.com/mesonbuild/meson/releases)
 
@@ -168,6 +169,26 @@ Check the box to add Doxygen to your path!
 1. Download [STM32CubeProgrammer](https://www.st.com/en/development-tools/stm32cubeprog.html) from ST (make an account in case you do not have one).
 
 1. To debug your code OpenOCD is needed. [Download](https://github.com/gnu-mcu-eclipse/openocd/releases) the latest release (win32.zip recommended) and make sure to add the `bin` directory, containing the `openocd.exe`, to your path. For more information see [Debugging](#debugging).
+
+**[Back to top](#table-of-contents)**
+
+#### Docker
+
+The complete build environment can also be build as Docker container.
+This drastically reduces setup time for the build environment as the only dependency needed is Docker.
+It is assumed Docker is already installed on your system.
+
+To build and run the container:
+```bash
+cd <project_root>
+
+# build the container from config/Dockerfile with the name "build_env"
+docker build config/ -t build_env
+
+# run the container and mount the <project_root> dir to /code
+docker run -it -v $(pwd):/code build_env bash
+```
+You can now run meson and ninja from this container where your project can be found in the `/code` directory.
 
 **[Back to top](#table-of-contents)**
 
@@ -250,7 +271,7 @@ Assuming you have VScode, the GNU Arm Embedded toolchain, and OpenOCD installed,
        "type": "cortex-debug",
        "servertype": "openocd",
        "configFiles": [
-           "interface/stlink.cfg"
+           "interface/stlink.cfg",
            "target/stm32h7x.cfg"
        ]
    }
