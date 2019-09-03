@@ -150,11 +150,68 @@ Run the installer
 
 #### Windows
 
+There are two ways to install the project on Windows: Native, or using virtualization.
+It is recommended to use virtualization, as this eliminates differences in software versions, and does not interfere with installed toolchains for other projects.
+Unfortunately, it will have a small impact on performance.
+
+##### Virtualization (recommended)
+
+Setting up the virtual development environment for the project is achieved with [Vagrant](https://www.vagrantup.com/) and [Virtualbox](https://www.virtualbox.org/wiki/Downloads).
+The virtualization software is Virtualbox, which creates and runs the actual Virtual Machine VM.
+Vagrant is a scripting engine on top of a VM, which allows for easy setup and install of images.
+
+After installing both these tools (you might have to reboot), open a command prompt and install virtualbox guest additions:
+```
+vagrant plugin install vagrant-vbguest
+```
+
+Navigate to the config directory and start Vagrant:
+```
+cd <project-root>/config
+
+vagrant up
+```
+
+Vagrant will now create the Virtualbox image and set up the VM.
+The initial setup will install all the tools, this might take up to 15min, a good time for a cup of coffee!
+
+NOTE: If Vagrant fails to start the VM becuase of problems related to VT-x, you have to disable Hyper-V.
+Because of this, it is not possible to run Docker and Virtualbox simultaneously.
+Open a command prompt and run:
+```
+bcdedit /set hypervisorlaunchtype off
+```
+
+Reboot!
+
+You might have to run `vagrant provision` to update the packages in the VM.
+
+If Vagrant successfully started the VM, SSH into it:
+```
+vagrant ssh
+```
+
+You should now be greeted by a linux prompt, the project should be mounted in `/project`:
+```
+cd /project
+```
+
+From here you can continue following the [usage](#usage) steps, or for a quick-start run:
+```
+. ./build.sh
+```
+
+To exit the VM, simply type `exit`.
+Stopping the VM is done with `vagrant halt`.
+Make sure to run `vagrant provision` once in a while to keep packages up to date.
+
+##### Native installation
+
 1. The easiest way to intall Meson and Ninja on windows is by using the [MSI installer](https://github.com/mesonbuild/meson/releases)
 
 1. A native compiler is needed to compile the test framework for the build machine (Windows). The Choice is either MinGW or Cygwin.
 
-    * The MinGW installer can be downloaded from [here](https://osdn.net/projects/mingw/releases/). Use the MinGW setup to download at least the `mingw-base` and the `ming-pthread` library. Make sure to add [MinGW](http://mingw.org/wiki/Getting_Started) to your system path.
+    * The MinGW installer can be downloaded from [here](https://osdn.net/projects/mingw/releases/). Use the MinGW setup to download at least the `mingw-base`, `mingw-g++`, and the `ming-pthread` library. Make sure to add [MinGW](http://mingw.org/wiki/Getting_Started) to your system path.
 
     * Cygwin...
 
