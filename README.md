@@ -12,6 +12,7 @@ Using this project should make it easy to cross-compile on different platforms, 
     1. [Installation](#installation)
         1. [Linux](#linux)
         1. [Windows](#windows)
+        1. [Vagrant](#vagrant)
         1. [Docker](#docker)
 1. [Usage](#usage)
     1. [Building](#building)
@@ -44,7 +45,7 @@ Features:
 - [x] Cross-compiling
 - [x] Unit testing framework
 - [ ] Code coverage
-- [ ] Static code analysis
+- [x] Static code analysis
 - [x] Documentation with doxygen
 - [ ] Auto-formatting code
 - [x] Dockerfile for dependencies
@@ -154,58 +155,7 @@ There are two ways to install the project on Windows: Native, or using virtualiz
 It is recommended to use virtualization, as this eliminates differences in software versions, and does not interfere with installed toolchains for other projects.
 Unfortunately, it will have a small impact on performance.
 
-##### Virtualization (recommended)
-
-Setting up the virtual development environment for the project is achieved with [Vagrant](https://www.vagrantup.com/) and [Virtualbox](https://www.virtualbox.org/wiki/Downloads).
-The virtualization software is Virtualbox, which creates and runs the actual Virtual Machine VM.
-Vagrant is a scripting engine on top of a VM, which allows for easy setup and install of images.
-
-After installing both these tools (you might have to reboot), open a command prompt and install virtualbox guest additions:
-```
-vagrant plugin install vagrant-vbguest
-```
-
-Navigate to the config directory and start Vagrant:
-```
-cd <project-root>/config
-
-vagrant up
-```
-
-Vagrant will now create the Virtualbox image and set up the VM.
-The initial setup will install all the tools, this might take up to 15min, a good time for a cup of coffee!
-
-NOTE: If Vagrant fails to start the VM becuase of problems related to VT-x, you have to disable Hyper-V.
-Because of this, it is not possible to run Docker and Virtualbox simultaneously.
-Open a command prompt and run:
-```
-bcdedit /set hypervisorlaunchtype off
-```
-
-Reboot!
-
-You might have to run `vagrant provision` to update the packages in the VM.
-
-If Vagrant successfully started the VM, SSH into it:
-```
-vagrant ssh
-```
-
-You should now be greeted by a linux prompt, the project should be mounted in `/project`:
-```
-cd /project
-```
-
-From here you can continue following the [usage](#usage) steps, or for a quick-start run:
-```
-. ./build.sh
-```
-
-To exit the VM, simply type `exit`.
-Stopping the VM is done with `vagrant halt`.
-Make sure to run `vagrant provision` once in a while to keep packages up to date.
-
-##### Native installation
+##### Native installation (not recommended)
 
 1. The easiest way to intall Meson and Ninja on windows is by using the [MSI installer](https://github.com/mesonbuild/meson/releases)
 
@@ -226,6 +176,70 @@ Check the box to add Doxygen to your path!
 1. Download [STM32CubeProgrammer](https://www.st.com/en/development-tools/stm32cubeprog.html) from ST (make an account in case you do not have one).
 
 1. To debug your code OpenOCD is needed. [Download](https://github.com/gnu-mcu-eclipse/openocd/releases) the latest release (win32.zip recommended) and make sure to add the `bin` directory, containing the `openocd.exe`, to your path. For more information see [Debugging](#debugging).
+
+**[Back to top](#table-of-contents)**
+
+#### Vagrant
+
+Setting up the virtual development environment for the project is achieved with [Vagrant](https://www.vagrantup.com/) and [Virtualbox](https://www.virtualbox.org/wiki/Downloads).
+The virtualization software is Virtualbox, which creates and runs the actual Virtual Machine VM.
+Vagrant is a scripting engine on top of a VM, which allows for easy setup and install of images.
+
+Navigate to the config directory and start Vagrant:
+```
+cd <project-root>/config
+
+vagrant up
+```
+
+Vagrant will now create the Virtualbox image and set up the VM.
+The initial setup will mainly install docker.
+This may take up to 5 min.
+
+**NOTE:** If Vagrant fails to start the VM becuase of problems related to VT-x, you have to disable Hyper-V (Windows).
+Because of this, it is not possible to run Docker for Windows and Virtualbox simultaneously.
+Open a command prompt and run:
+```
+bcdedit /set hypervisorlaunchtype off
+```
+
+Reboot!
+
+If Vagrant successfully started the VM, SSH into it:
+```
+vagrant ssh
+```
+
+You should now be greeted by a linux prompt, the project should be mounted in `/project`:
+```
+cd /project
+```
+
+From the project we create the docker container with the build environment.
+The provided script `env.sh` automates the process of building the Docker container and running it.
+On Windows, you might have to change the file-ending to be able to run the script: `dos2unix env.sh`.
+```bash
+# on Windows convert the file endings (only need to do this once)
+dos2unix env.sh
+
+# set up the build environment
+./env.sh
+```
+
+After successfully building the Docker container, you will be greeted by a new prompt `root@build`
+Again, cd to the project directory.
+```
+cd /project
+```
+
+From here you can continue following the [usage](#usage) steps, or for a quick-start run:
+```
+. ./build.sh
+```
+
+To exit the VM, simply type `exit`.
+Stopping the VM is done with `vagrant halt`.
+Make sure to run `vagrant provision` once in a while to keep packages up to date.
 
 **[Back to top](#table-of-contents)**
 
