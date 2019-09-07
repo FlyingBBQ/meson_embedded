@@ -100,7 +100,7 @@ sudo pacman -S arm-none-eabi-binutils arm-none-eabi-gcc arm-none-eabi-newlib
 
 Doxygen
 ```
-sudo pacman -S doxygen graphiz
+sudo pacman -S doxygen graphviz
 ```
 
 Debugging
@@ -127,7 +127,7 @@ sudo apt-get install gcc-arm-none-eabi binutils-arm-none-eabi
 
 Doxygen
 ```
-sudo apt-get install doxygen graphiz
+sudo apt-get install doxygen graphviz
 ```
 
 Debugging
