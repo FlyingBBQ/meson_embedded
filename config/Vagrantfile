@@ -49,23 +49,23 @@ Vagrant.configure("2") do |config|
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  config.vm.provider "virtualbox" do |vb|
-    # Display the VirtualBox GUI when booting the machine
-    #vb.gui = true
+  #config.vm.provider "virtualbox" do |vb|
+  #  # Display the VirtualBox GUI when booting the machine
+  #  #vb.gui = true
 
-    # Enable USB controller in Virtualbox
-    vb.customize ["modifyvm", :id, "--usb", "on"]
-    vb.customize ["modifyvm", :id, "--usbehci", "on"]
+  #  # Enable USB controller in Virtualbox
+  #  vb.customize ["modifyvm", :id, "--usb", "on"]
+  #  vb.customize ["modifyvm", :id, "--usbehci", "on"]
 
-    # Usb filter
-    vb.customize ["usbfilter", "add", "0",
-      "--target", :id,
-      "--name", "STLINK",
-      "--manufacturer", "STMicroelectronics"]
-  
-    # Customize the amount of memory on the VM:
-    vb.memory = "1024"
-  end
+  #  # Usb filter
+  #  vb.customize ["usbfilter", "add", "0",
+  #    "--target", :id,
+  #    "--name", "STLINK",
+  #    "--manufacturer", "STMicroelectronics"]
+  #
+  #  # Customize the amount of memory on the VM:
+  #  vb.memory = "1024"
+  #end
   #
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -76,20 +76,10 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: <<-SHELL
     apt-get update
     apt-get -y install \
-	    build-essential \
     	curl \
     	git \
-    	python3 \
-    	python3-pip \
-    	ninja-build \
-    	binutils-arm-none-eabi \
-    	gcc-arm-none-eabi \
-    	libnewlib-arm-none-eabi \
-      clang \
-      clang-tools \
-    	doxygen \
-    	graphviz
+        docker.io 
 
-    pip3 install meson
+    sudo systemctl enable docker
   SHELL
 end

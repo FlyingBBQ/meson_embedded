@@ -1,5 +1,8 @@
 build/
 config/platform/build/
+config/*.log
+
+.vagrant
 
 subprojects/*
 !subprojects/*.wrap
