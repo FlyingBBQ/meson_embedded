@@ -40,8 +40,8 @@ defines = [
   '-DSTM32H743xx',
 ]
 
-linkerfile = files('config/STM32H743ZITx_FLASH.ld')
-startupfile = files('config/startup_stm32h743xx.s')
+linkerfile = files('src/STM32H743ZITx_FLASH.ld')
+startupfile = files('src/startup_stm32h743xx.s')
 
 # add defines to the c_args
 c_args += defines
@@ -89,6 +89,6 @@ if not stmprog.found()
   warning('STM32_Programmer_CLI not found, flashing not possible')
 else
   run_target('flash',
-    command : [stmprog, '-c', 'port=SWD', '-w', mainbin.full_path(), '0x08000000'],
+    command : [stmprog, '-c', 'port=SWD', '-w', mainbin.full_path(), '0x08000000', '-v', '-hardRst'],
     depends : mainbin)
 endif
